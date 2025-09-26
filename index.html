@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt-Driven Development: The Antidote to Vibe Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Focus -->
+    <!-- Application Structure Plan: The application is structured as a single-page, vertical scrolling experience with a sticky navigation bar. This transforms the linear presentation script into a non-linear, explorable guide. The core sections are: 1) An introduction contrasting the two methodologies visually. 2) An interactive, step-by-step simulation of the live demo, allowing users to reveal prompts and results on demand. 3) A card-based layout for best practices. This structure was chosen to turn passive reading into active engagement, allowing users to explore the concepts at their own pace and focus on the practical application of PDD. -->
+    <!-- Visualization & Content Choices: Report Info: Vibe vs. PDD comparison -> Goal: Compare -> Viz: Side-by-side HTML/CSS layout -> Interaction: Visual comparison -> Justification: Immediately establishes the core conflict of the presentation. Report Info: Live Demo Walkthrough -> Goal: Organize Process -> Viz: Interactive JS-powered stepper -> Interaction: User clicks to advance steps and reveal prompts/results -> Justification: Turns a static script into an engaging, self-paced tutorial. Report Info: Best Practices -> Goal: Inform -> Viz: Card grid layout -> Interaction: Hover effects -> Justification: Presents rules as digestible, visually distinct items. No quantitative data was present, so no charts were used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .active-nav {
+            color: #0d9488;
+            font-weight: 600;
+        }
+        .step-item.active .step-circle {
+            background-color: #0d9488;
+            color: white;
+            border-color: #0d9488;
+        }
+        .step-item.active .step-title {
+            color: #0d9488;
+            font-weight: 600;
+        }
+        .step-item .step-line {
+            height: calc(100% - 2.5rem);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased">
+
+    <header class="bg-stone-50/80 backdrop-blur-lg sticky top-0 z-50 border-b border-stone-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-teal-700">PDD vs. Vibe Coding</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#problem" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:text-teal-600 transition-colors">The Problem</a>
+                        <a href="#solution" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:text-teal-600 transition-colors">The Solution</a>
+                        <a href="#workflow" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:text-teal-600 transition-colors">The Workflow</a>
+                        <a href="#mindset" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-stone-600 hover:text-teal-600 transition-colors">The Mindset</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <section id="intro" class="text-center my-16">
+            <h2 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl md:text-6xl">Prompt-Driven Development</h2>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">The Antidote to Vibe Coding in VS Code</p>
+            <p class="mt-6 max-w-3xl mx-auto text-base text-stone-500">This is an interactive guide to your presentation. It transforms the core concepts into an explorable experience, highlighting the contrast between chaotic "vibe coding" and the structured, intentional workflow of Prompt-Driven Development.</p>
+        </section>
+
+        <section id="problem" class="my-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-stone-900">The Two Paths of a Developer</h3>
+                <p class="mt-2 text-stone-600">Every feature starts with a choice. Which path do you take?</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <div class="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
+                    <h4 class="text-2xl font-bold text-amber-600">Path 1: The "Vibe Coder"</h4>
+                    <p class="text-stone-500 mt-2 mb-6">Coding based on intuition, caffeine, and a prayer. It feels fast, until it isn't.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-xl mr-4 mt-1">🎢</span>
+                            <div>
+                                <h5 class="font-semibold">"What Feels Right" Logic</h5>
+                                <p class="text-sm text-stone-500">Writing code first, figuring out the exact requirements later.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-xl mr-4 mt-1">📚</span>
+                            <div>
+                                <h5 class="font-semibold">Stack Overflow Archeology</h5>
+                                <p class="text-sm text-stone-500">Relying on fragmented, often outdated, copy-pasted answers.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-xl mr-4 mt-1">🤷</span>
+                            <div>
+                                <h5 class="font-semibold">Inconsistent Naming</h5>
+                                <p class="text-sm text-stone-500">`getUser`, `fetchData`, `grabAllThePeople` in the same file.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-8 text-center bg-amber-50 p-4 rounded-lg">
+                        <p class="font-semibold text-amber-800">The Punchline: "It's fun, until it's 2 AM and you're the one on call."</p>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl border-2 border-teal-500 shadow-lg">
+                    <h4 class="text-2xl font-bold text-teal-600">Path 2: The "PDD Coder"</h4>
+                    <p class="text-stone-500 mt-2 mb-6">Using natural language as a first-class citizen to guide development with intention.</p>
+                     <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-xl mr-4 mt-1">🎯</span>
+                            <div>
+                                <h5 class="font-semibold">1. Intent (Prompt)</h5>
+                                <p class="text-sm text-stone-500">Clearly state your goal in a comment or chat before writing code.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-xl mr-4 mt-1">🤖</span>
+                            <div>
+                                <h5 class="font-semibold">2. Generate (Code)</h5>
+                                <p class="text-sm text-stone-500">Let an AI partner generate the boilerplate and initial implementation.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-xl mr-4 mt-1">🧐</span>
+                            <div>
+                                <h5 class="font-semibold">3. Verify & Refine (Human)</h5>
+                                <p class="text-sm text-stone-500">You, the architect, review, test, and adapt the generated code.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-8 text-center bg-teal-50 p-4 rounded-lg">
+                        <p class="font-semibold text-teal-800">The Analogy: "Pairing with a brilliant but hyper-literal junior dev."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="solution" class="my-24 scroll-mt-20">
+             <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-stone-900">What is Prompt-Driven Development?</h3>
+                <p class="mt-2 max-w-3xl mx-auto text-stone-600">PDD is a development methodology where natural language prompts are used to deliberately guide **scaffolding, implementation, testing, refactoring, and documentation** right inside your editor.</p>
+            </div>
+        </section>
+
+        <section id="workflow" class="my-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-stone-900">PDD in Action: The Workflow</h3>
+                <p class="mt-2 text-stone-600">An interactive simulation of the "Dev-Jokes" VS Code extension demo.</p>
+            </div>
+
+            <div class="lg:grid lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-4 mb-8 lg:mb-0">
+                    <div id="stepper" class="space-y-0">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div id="workflow-content" class="bg-white p-8 rounded-xl border border-stone-200 shadow-sm min-h-[400px]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mindset" class="my-24 scroll-mt-20">
+             <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-stone-900">The PDD Mindset: Best Practices</h3>
+                <p class="mt-2 text-stone-600">Using AI tools responsibly and effectively requires a shift in mindset.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">You are the Architect</h4>
+                    <p class="text-stone-600 text-sm mt-1">You own the design and the outcome. The AI is a tool to execute your vision faster, not to create it.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">Specificity is King</h4>
+                    <p class="text-stone-600 text-sm mt-1">"Bad Prompt In, Bad Code Out." Be descriptive. The more context you give, the better the output.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">Never Trust, Always Verify</h4>
+                    <p class="text-stone-600 text-sm mt-1">The AI is a pair programmer, not an infallible oracle. Review every significant line of generated code.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">The Best Prompts are Comments</h4>
+                    <p class="text-stone-600 text-sm mt-1">Writing your intent as a comment first clarifies your own thinking and documents your code for free.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">Use AI for the "How"</h4>
+                    <p class="text-stone-600 text-sm mt-1">You define *what* problem to solve. Use the AI to accelerate *how* you implement the solution.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border border-stone-200 hover:shadow-lg transition-shadow">
+                    <h4 class="font-bold text-lg text-teal-700">Your Mission</h4>
+                    <p class="text-stone-600 text-sm mt-1">Install an AI assistant, try writing a comment first for one task, and embrace the PDD loop: **Intent -> Generate -> Verify.**</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="border-t border-stone-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500 text-sm">
+            <p>&copy; 2025 Your Name. An interactive guide for the VS Code Dev Days presentation.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const workflowData = [
+                {
+                    title: "Phase 1: Project Scaffolding",
+                    vibe: "Googles 'how to make vs code extension,' gets lost in docs, copies an outdated template.",
+                    pdd: "Uses Copilot Chat to get precise, up-to-date instructions for scaffolding and file structure.",
+                    prompt: `How do I create the basic file structure for a new VS Code extension using TypeScript?`,
+                    result: `Run 'npm install -g yo generator-code' then 'yo code'.\n\nThe 'package.json' defines your extension's metadata and commands. The 'extension.ts' contains your activation logic.`
+                },
+                {
+                    title: "Phase 2: Core Logic",
+                    vibe: "Hardcodes an array of jokes, then struggles with async/await when switching to an API.",
+                    pdd: "Writes a clear, descriptive comment, and lets the AI generate the complete, error-handled async function.",
+                    prompt: `// Function to fetch a random developer joke from the public API
+// endpoint 'https://official-joke-api.appspot.com/random_joke'.
+// It should handle the fetch request, parse the JSON, and return the joke object.
+// Add error handling in case the API call fails.`,
+                    result: `async function fetchJoke() {
+  try {
+    const response = await fetch('...');
+    if (!response.ok) throw new Error('API Error');
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch joke:', error);
+  }
+}`
+                },
+                {
+                    title: "Phase 3: Displaying the UI",
+                    vibe: "Dives into dense VS Code API documentation to figure out how to show a pop-up message.",
+                    pdd: "Asks Copilot Chat for the exact code to register a command and show an information message.",
+                    prompt: `How do I register a command called 'dev-jokes.showJoke' and link it to a function that displays a joke's setup and punchline in an information message?`,
+                    result: `vscode.commands.registerCommand('dev-jokes.showJoke', async () => {
+  const joke = await fetchJoke();
+  if (joke) {
+    vscode.window.showInformationMessage(joke.setup + ' - ' + joke.punchline);
+  }
+});`
+                },
+                {
+                    title: "Phase 4: Testing",
+                    vibe: '"It works on my machine, let\'s ship it!" Skips writing tests due to time constraints.',
+                    pdd: "Highlights the fetch function and uses the '/tests' command to generate robust unit tests instantly.",
+                    prompt: `/tests Generate unit tests for this function using Jest. Mock the global 'fetch' API to avoid making real network calls.`,
+                    result: `describe('fetchJoke', () => {
+  it('should return a joke on successful fetch', async () => {
+    // ... test implementation
+  });
+  it('should handle API errors gracefully', async () => {
+    // ... error case implementation
+  });
+});`
+                },
+                {
+                    title: "Phase 5: Documentation",
+                    vibe: 'Leaves zero comments, claiming "the code is self-documenting."',
+                    pdd: "Highlights the function and uses a command to automatically generate a clean, professional JSDoc block.",
+                    prompt: `@workspace /doc Add a JSDoc comment block to this function.`,
+                    result: `/**
+ * Fetches a random developer joke from a public API.
+ * @returns {Promise<Object|undefined>} A promise that resolves to the joke object, or undefined on error.
+ */
+async function fetchJoke() { ... }`
+                }
+            ];
+
+            const stepperContainer = document.getElementById('stepper');
+            const contentContainer = document.getElementById('workflow-content');
+            let activeStep = 0;
+
+            function renderStepper() {
+                stepperContainer.innerHTML = workflowData.map((step, index) => `
+                    <div class="step-item flex relative cursor-pointer" data-step="${index}">
+                        <div class="flex flex-col items-center mr-4">
+                            <div>
+                                <div class="step-circle flex items-center justify-center w-10 h-10 border-2 border-stone-300 rounded-full transition-colors">
+                                    <span class="text-lg font-bold">${index + 1}</span>
+                                </div>
+                            </div>
+                            ${index < workflowData.length - 1 ? '<div class="step-line w-px bg-stone-300 absolute top-10 left-5"></div>' : ''}
+                        </div>
+                        <div class="pt-1 pb-8">
+                            <p class="step-title text-lg font-medium text-stone-600 transition-colors">${step.title}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderContent(index) {
+                const data = workflowData[index];
+                contentContainer.innerHTML = `
+                    <h4 class="text-2xl font-bold mb-4">${data.title}</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="font-semibold text-amber-600">😴 The Vibe Coder's Approach</p>
+                            <p class="text-stone-600 italic mt-1 text-sm">${data.vibe}</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-teal-600">🚀 The PDD Coder's Approach</p>
+                            <p class="text-stone-600 mt-1 text-sm">${data.pdd}</p>
+                        </div>
+                        <div class="space-y-2">
+                             <button class="toggle-prompt bg-stone-200 text-stone-700 px-3 py-1 rounded-md text-sm hover:bg-stone-300 transition-colors">Show The Prompt →</button>
+                             <pre class="prompt-block hidden bg-stone-900 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>${data.prompt}</code></pre>
+                        </div>
+                         <div class="space-y-2">
+                             <button class="toggle-result bg-teal-100 text-teal-800 px-3 py-1 rounded-md text-sm hover:bg-teal-200 transition-colors">See The Result →</button>
+  
